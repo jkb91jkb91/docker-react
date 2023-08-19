@@ -13,5 +13,9 @@ jobs:
       - run: pwd
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - run: docker build -t myimage -f Dockerfile.dev .
+      - run: docker run -e CI=true myimage npm test
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
 
  
